@@ -26,7 +26,7 @@ description: 用《高性价比医美建议》的正文回答具体的医美决�
 远程模式：
 
 ```bash
-git clone --depth 1 <仓库地址> "${TMPDIR:-/tmp}/hltb-aes"
+git clone --depth 1 https://github.com/sooogooo/How2MakeAestheticMedicineDecision.git "${TMPDIR:-/tmp}/h2mamd"
 ```
 
 取不到就如实说取不到，不要凭印象复述。
