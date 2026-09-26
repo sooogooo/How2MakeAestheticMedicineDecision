@@ -1,0 +1,9 @@
+# 一律以 LF 入库。Windows 上 core.autocrlf=true 会检出 CRLF，
+# 正则里用 '\n' 做锚点时，CRLF 文件会一条都匹配不上。
+# 源项目踩过这个坑（tools/check-refs.mjs 的注释里记着），这里提前锁死。
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary

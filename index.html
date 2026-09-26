@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>高性价比医美建议 · 按风险排序的医美决策指南</title>
+<meta name="description" content="按风险排序的医美决策指南：88 条建议，覆盖不可逆风险、算钱、术前查验、决策卫生、术后并发症、纠纷处理和广告红线。每条写明成本、收益、风险、可逆性、证据等级和原始出处。">
+<meta name="theme-color" content="#0f7a6c" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1512" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f7a6c'/%3E%3Cpath d='M20 34l8 9 16-20' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#fbfbfa; --panel:#ffffff; --panel-2:#f4f5f4; --line:#e3e5e3;
+  --ink:#14181a; --ink-2:#4a5257; --ink-3:#7b8489;
+  --brand:#0f7a6c; --brand-soft:#e6f2f0;
+  --risk-hi:#b4322c; --risk-hi-soft:#fbeceb;
+  --risk-mid:#9a6a12; --risk-mid-soft:#fbf3e3;
+  --risk-lo:#2f6b4f; --risk-lo-soft:#eaf3ee;
+  --grid:#dfe3e1;
+  --shadow:0 1px 2px rgba(16,24,20,.05), 0 8px 24px -12px rgba(16,24,20,.16);
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1512; --panel:#131c19; --panel-2:#18231f; --line:#26332e;
+    --ink:#e8ece9; --ink-2:#a9b5b1; --ink-3:#7d8a85;
+    --brand:#4fc3ae; --brand-soft:#14302a;
+    --risk-hi:#f0897f; --risk-hi-soft:#2c1b19;
+    --risk-mid:#e0b065; --risk-mid-soft:#2b2317;
+    --risk-lo:#77c79b; --risk-lo-soft:#152a20;
+    --grid:#26332e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1512; --panel:#131c19; --panel-2:#18231f; --line:#26332e;
+  --ink:#e8ece9; --ink-2:#a9b5b1; --ink-3:#7d8a85;
+  --brand:#4fc3ae; --brand-soft:#14302a;
+  --risk-hi:#f0897f; --risk-hi-soft:#2c1b19;
+  --risk-mid:#e0b065; --risk-mid-soft:#2b2317;
+  --risk-lo:#77c79b; --risk-lo-soft:#152a20;
+  --grid:#26332e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:15px; line-height:1.7;
+  padding:0 16px 96px;
+}
+.wrap{max-width:900px;margin:0 auto}
+
+/* ---------- header ---------- */
+header{padding:44px 0 8px}
+h1{font-size:27px;line-height:1.3;margin:0 0 8px;letter-spacing:-.01em;font-weight:700}
+.lede{color:var(--ink-2);margin:0 0 20px;max-width:62ch}
+.lede b{color:var(--ink)}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.stat{
+  background:var(--panel); border:1px solid var(--line); border-radius:9px;
+  padding:7px 11px; font-size:13px; color:var(--ink-2); box-shadow:var(--shadow);
+}
+.stat b{color:var(--ink);font-variant-numeric:tabular-nums}
+.stat.warn b{color:var(--risk-mid)}
+.themebtn{
+  position:absolute;top:44px;right:16px;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:6px 10px;font-size:13px;color:var(--ink-2);cursor:pointer;font-family:inherit;
+}
+@media (max-width:620px){ .themebtn{position:static;margin-bottom:12px} }
+
+/* ---------- matrix ---------- */
+.section-h{
+  font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;margin:34px 0 12px
+}
+.hint{color:var(--ink-3);font-size:13px;margin:-4px 0 14px}
+.matrix{display:grid;grid-template-columns:64px repeat(3,1fr);gap:6px;align-items:stretch}
+.mx-lab{display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink-3);font-weight:600}
+.mx-lab.row{justify-content:flex-end;padding-right:6px}
+.cell{
+  border:1px solid var(--line); border-radius:10px; padding:12px 10px; cursor:pointer;
+  background:var(--panel); text-align:left; font-family:inherit; color:var(--ink);
+  display:flex;flex-direction:column;gap:2px; transition:transform .12s ease, border-color .12s ease;
+  min-height:74px;
+}
+.cell:hover{transform:translateY(-1px);border-color:var(--ink-3)}
+.cell .n{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.cell .cap{font-size:11px;color:var(--ink-3)}
+.cell[data-r="大"]{background:var(--risk-hi-soft);border-color:color-mix(in srgb,var(--risk-hi) 26%,transparent)}
+.cell[data-r="大"] .n{color:var(--risk-hi)}
+.cell[data-r="中"]{background:var(--risk-mid-soft);border-color:color-mix(in srgb,var(--risk-mid) 26%,transparent)}
+.cell[data-r="中"] .n{color:var(--risk-mid)}
+.cell[data-r="小"]{background:var(--risk-lo-soft);border-color:color-mix(in srgb,var(--risk-lo) 26%,transparent)}
+.cell[data-r="小"] .n{color:var(--risk-lo)}
+.cell.zero{opacity:.34}
+.cell.on{outline:2px solid var(--brand);outline-offset:1px}
+@media (max-width:560px){
+  .matrix{grid-template-columns:44px repeat(3,1fr);gap:4px}
+  .cell{padding:9px 6px;min-height:62px}
+  .cell .n{font-size:17px}
+  .cell .cap{display:none}
+  .mx-lab{font-size:11px}
+}
+
+/* ---------- filters ---------- */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);padding:12px 0;border-bottom:1px solid var(--line);margin-top:26px}
+.searchrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+input[type=search]{
+  flex:1;min-width:180px;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:10px 13px;font-size:14px;font-family:inherit;color:var(--ink)
+}
+input[type=search]:focus{outline:2px solid var(--brand);outline-offset:0;border-color:transparent}
+.facets{display:flex;flex-wrap:wrap;gap:14px;margin-top:11px}
+.facet{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.facet .fl{font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.04em;margin-right:1px}
+.chip{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:3px 10px;
+  font-size:12.5px;color:var(--ink-2);cursor:pointer;font-family:inherit;line-height:1.6;
+  transition:background .1s ease,color .1s ease,border-color .1s ease;
+}
+.chip:hover{border-color:var(--ink-3);color:var(--ink)}
+.chip .c{color:var(--ink-3);font-variant-numeric:tabular-nums;margin-left:3px;font-size:11.5px}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.chip.on .c{color:rgba(255,255,255,.8)}
+.chip.dim{opacity:.4}
+
+/* ---------- results ---------- */
+.countbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 12px;flex-wrap:wrap}
+.countbar .n{font-size:13px;color:var(--ink-2)}
+.countbar .n b{color:var(--ink);font-variant-numeric:tabular-nums;font-size:16px}
+.reset{background:none;border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:12.5px;
+  color:var(--ink-2);cursor:pointer;font-family:inherit}
+.reset:hover{border-color:var(--ink-3);color:var(--ink)}
+
+.sechead{margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--ink);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sechead .sn{font-size:12px;font-weight:700;color:var(--brand);letter-spacing:.06em}
+.sechead h2{font-size:17px;margin:0;font-weight:700}
+.sechead .sc{font-size:12px;color:var(--ink-3);margin-left:auto;font-variant-numeric:tabular-nums}
+
+.card{
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);
+  border-radius:11px;padding:15px 17px;margin-bottom:10px;box-shadow:var(--shadow);
+}
+.card[data-r="大"]{border-left-color:var(--risk-hi)}
+.card[data-r="中"]{border-left-color:var(--risk-mid)}
+.card[data-r="小"]{border-left-color:var(--risk-lo)}
+.card h3{font-size:15.5px;margin:0 0 9px;line-height:1.5;font-weight:650}
+.card h3 .num{color:var(--ink-3);font-variant-numeric:tabular-nums;margin-right:5px;font-weight:500}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+.b{font-size:11.5px;border-radius:6px;padding:2px 7px;border:1px solid var(--line);color:var(--ink-2);background:var(--panel-2);white-space:nowrap}
+.b.gA{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 35%,transparent);background:var(--brand-soft);font-weight:700}
+.b.gB{font-weight:600;color:var(--ink-2)}
+.b.gC{color:var(--ink-3)}
+.b.gP{color:var(--brand);border-style:dashed;border-color:color-mix(in srgb,var(--brand) 40%,transparent)}
+.b.rh{color:var(--risk-hi);border-color:color-mix(in srgb,var(--risk-hi) 32%,transparent);background:var(--risk-hi-soft)}
+.b.rm{color:var(--risk-mid);border-color:color-mix(in srgb,var(--risk-mid) 32%,transparent);background:var(--risk-mid-soft)}
+.b.rl{color:var(--risk-lo);border-color:color-mix(in srgb,var(--risk-lo) 32%,transparent);background:var(--risk-lo-soft)}
+.b.irr{color:var(--risk-hi);font-weight:600}
+.b.todo{color:var(--risk-mid);border-style:dashed}
+.human{margin:0;color:var(--ink);font-size:14.5px}
+.human::before{content:"说人话　";color:var(--ink-3);font-size:12px;font-weight:600;letter-spacing:.04em}
+details{margin-top:11px;border-top:1px solid var(--line);padding-top:9px}
+summary{cursor:pointer;font-size:12.5px;color:var(--ink-3);list-style:none;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";display:inline-block;transition:transform .15s ease}
+details[open] summary::before{transform:rotate(90deg)}
+summary:hover{color:var(--brand)}
+.fields{margin:11px 0 0;display:grid;gap:8px}
+.f{display:grid;grid-template-columns:78px 1fr;gap:10px;font-size:13.5px}
+.f .k{color:var(--ink-3);font-size:12.5px;padding-top:1px}
+.f .v{color:var(--ink-2);word-break:break-word}
+.f .v.src{font-family:var(--mono);font-size:12px;line-height:1.6}
+.f .v a{color:var(--brand);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--brand) 35%,transparent);word-break:break-all}
+.f .v a:hover{border-bottom-color:var(--brand)}
+@media (max-width:560px){ .f{grid-template-columns:1fr;gap:1px} .f .k{font-size:11.5px} }
+.empty{text-align:center;padding:56px 16px;color:var(--ink-3)}
+.empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12.5px}
+footer p{margin:5px 0}
+.err{background:var(--risk-hi-soft);border:1px solid color-mix(in srgb,var(--risk-hi) 30%,transparent);
+  border-radius:10px;padding:16px 18px;margin:24px 0;font-size:14px}
+.err code{font-family:var(--mono);background:var(--panel);padding:2px 6px;border-radius:5px;font-size:13px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<button class="themebtn" id="theme" aria-label="切换配色">配色</button>
+<div class="wrap">
+
+<header>
+  <h1>高性价比医美建议</h1>
+  <p class="lede">按风险排序的医美决策指南。<b>先按不可逆风险分层，层内才排性价比。</b>这本书不回答「我该做什么项目」，只回答四件事：会不会留下不可逆的伤、这笔钱值不值、这家机构和这个人合不合法、出了事走哪条路。</p>
+  <div class="stats" id="stats"></div>
+</header>
+
+<div class="section-h">风险 × 可逆性</div>
+<p class="hint">点格子筛选。这是全书的排序依据：风险大、可逆性低的条目排在前面，不管性价比。</p>
+<div class="matrix" id="matrix"></div>
+
+<div class="bar">
+  <div class="searchrow">
+    <input type="search" id="q" placeholder="搜索标题、说人话、风险、来源……" autocomplete="off" aria-label="搜索">
+  </div>
+  <div class="facets" id="facets"></div>
+</div>
+
+<div class="countbar">
+  <div class="n">命中 <b id="hits">0</b> 条</div>
+  <button class="reset" id="reset">清除全部筛选</button>
+</div>
+
+<main id="out"></main>
+
+<footer>
+  <p>数据直接读本目录下的 <code>README.md</code> 和 <code>book/*.md</code>。正文改了，这一页跟着改。</p>
+  <p>每条标了 <b>数据截至</b> 日期和 <b>自查路径</b>。批准状态、退市、价格、资质都会变，正文不长期维护这些数字。</p>
+  <p>给的是通用口径，不替代医师、律师、鉴定人。</p>
+</footer>
+
+</div>
+
+<script>
+'use strict';
+
+/* ============ 解析 ============ */
+const README_FILES = /\]\((book\/[^)]+\.md)\)/g;
+const TAG = /<!--\s*成本标签:\s*(.*?)\s*-->/;
+const FIELDS = ['成本','说人话','收益','风险','可逆性','证据等级','利益冲突','来源','备注','数据截至','自查路径'];
+
+// 离线单文件版把正文内联进 window.__CORPUS__，认这个变量就不发请求。
+const CORPUS = (typeof window !== 'undefined' && window.__CORPUS__) || null;
+
+async function getText(path){
+  if (CORPUS) return CORPUS.readme && path === 'README.md' ? CORPUS.readme : CORPUS.parts[path];
+  const r = await fetch(path, {cache:'no-cache'});
+  if(!r.ok) throw new Error(path + ' → HTTP ' + r.status);
+  return await r.text();
+}
+
+function parseEntry(block, num, secNum){
+  const e = { num, secNum, fields:{}, tags:{} };
+  const t = TAG.exec(block);
+  if (t) for (const kv of t[1].split(/\s+/)) {
+    const i = kv.indexOf('=');
+    if (i > 0) e.tags[kv.slice(0,i)] = kv.slice(i+1);
+  }
+  for (const f of FIELDS){
+    const re = new RegExp('(?:^|\\n)- ' + f + '：([\\s\\S]*?)(?=\\n- (?:' + FIELDS.join('|') + ')：|\\n### |$)');
+    const m = re.exec(block);
+    if (m) e.fields[f] = m[1].replace(/\s+$/,'').trim();
+  }
+  const first = block.split(/\r?\n/)[0];
+  e.title = first.replace(/^###\s*\d+\.\s*/, '').trim();
+  e.todo = /TODO|待核实/.test(block);
+  e.grade = (e.fields['证据等级']||'').trim().charAt(0) || '?';
+  e.risk  = e.tags['风险'] || '?';
+  e.rev   = e.tags['可逆'] || '?';
+  e.scope = e.tags['口径'] || '?';
+  e.hay = (e.title + ' ' + FIELDS.map(f => e.fields[f]||'').join(' ')).toLowerCase();
+  return e;
+}
+
+function parseBook(md, file){
+  const secNum = Number(file.slice(5,7));
+  const sm = /^#\s*(\d+)\.\s*(.+)$/m.exec(md);
+  const sec = { num: secNum, name: sm ? sm[2].trim() : file, entries: [] };
+  const parts = md.split(/^###\s+(\d+)\.\s+/m);
+  for (let i = 1; i < parts.length; i += 2){
+    sec.entries.push(parseEntry('### ' + parts[i] + '. ' + parts[i+1], Number(parts[i]), secNum));
+  }
+  return sec;
+}
+
+/* ============ 状态 ============ */
+const DIMS = {
+  grade: {label:'证据',  get: e => e.grade, order:['A','B','C','P'],
+          title:{A:'A · 官方数字可核验',B:'B · 有原始研究但样本有限',C:'C · 共识或作者经验',P:'P · 程序性证据'}},
+  scope: {label:'口径',  get: e => e.scope, order:['安全','自由','金钱']},
+  risk:  {label:'风险',  get: e => e.risk,  order:['大','中','小']},
+  rev:   {label:'可逆',  get: e => e.rev,   order:['低','中','高']},
+  money: {label:'钱',    get: e => e.tags['钱'], order:['0','少','中','多'], title:{'0':'不花钱或省钱'}}
+};
+const state = { q:'', dims:{}, open:new Set() };
+for (const k in DIMS) state.dims[k] = new Set();
+
+let SECTIONS = [];
+
+/* ============ 渲染 ============ */
+function esc(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function linkify(s){
+  return esc(s).replace(/(https?:\/\/[^\s，。；）」<]+)/g, (u) => {
+    const clean = u.replace(/[.,;)]+$/,'');
+    return '<a href="' + clean + '" target="_blank" rel="noopener">' + clean + '</a>' + u.slice(clean.length);
+  });
+}
+
+function renderStats(){
+  const all = SECTIONS.flatMap(s => s.entries);
+  const g = {}; all.forEach(e => g[e.grade] = (g[e.grade]||0)+1);
+  const todo = all.filter(e => e.todo).length;
+  const secs = SECTIONS.length;
+  document.getElementById('stats').innerHTML =
+    `<span class="stat"><b>${all.length}</b> 条建议</span>` +
+    `<span class="stat"><b>${secs}</b> 节</span>` +
+    `<span class="stat">证据 A <b>${g.A||0}</b> · B <b>${g.B||0}</b> · C <b>${g.C||0}</b> · P <b>${g.P||0}</b></span>` +
+    `<span class="stat warn"><b>${todo}</b> 处待核实</span>`;
+}
+
+function countFor(dim, val, base){
+  return base.filter(e => DIMS[dim].get(e) === val).length;
+}
+
+function renderMatrix(base){
+  const R = ['大','中','小'], V = ['低','中','高'];
+  let h = '<div class="mx-lab"></div>' + V.map(v => `<div class="mx-lab">可逆${v}</div>`).join('');
+  for (const r of R){
+    h += `<div class="mx-lab row">风险${r}</div>`;
+    for (const v of V){
+      const n = base.filter(e => e.risk === r && e.rev === v).length;
+      const on = state.dims.risk.has(r) && state.dims.rev.has(v) ? ' on' : '';
+      h += `<button class="cell${n===0?' zero':''}${on}" data-r="${r}" data-v="${v}" type="button">
+              <span class="n">${n}</span><span class="cap">风险${r} · 可逆${v}</span></button>`;
+    }
+  }
+  const el = document.getElementById('matrix');
+  el.innerHTML = h;
+  el.querySelectorAll('.cell').forEach(c => c.addEventListener('click', () => {
+    const r = c.dataset.r, v = c.dataset.v;
+    const both = state.dims.risk.has(r) && state.dims.rev.has(v);
+    state.dims.risk.clear(); state.dims.rev.clear();
+    if (!both){ state.dims.risk.add(r); state.dims.rev.add(v); }
+    render();
+  }));
+}
+
+function renderFacets(base, byOthers){
+  let h = '';
+  for (const k in DIMS){
+    const d = DIMS[k];
+    const vals = d.order.filter(v => base.some(e => d.get(e) === v));
+    if (!vals.length) continue;
+    h += `<div class="facet"><span class="fl">${d.label}</span>`;
+    for (const v of vals){
+      const n = countFor(k, v, byOthers[k]);
+      const on = state.dims[k].has(v) ? ' on' : '';
+      const dim = (n === 0 && !state.dims[k].has(v)) ? ' dim' : '';
+      const label = (k === 'money') ? (v === '0' ? '不花钱' : v) : v;
+      h += `<button class="chip${on}${dim}" data-dim="${k}" data-val="${v}" type="button"
+              title="${esc((d.title||{})[v] || '')}">${esc(label)}<span class="c">${n}</span></button>`;
+    }
+    h += '</div>';
+  }
+  const el = document.getElementById('facets');
+  el.innerHTML = h;
+  el.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+    const k = c.dataset.dim, v = c.dataset.val;
+    state.dims[k].has(v) ? state.dims[k].delete(v) : state.dims[k].add(v);
+    render();
+  }));
+}
+
+function matches(e, ignoreDim){
+  if (state.q && !e.hay.includes(state.q)) return false;
+  for (const k in DIMS){
+    if (k === ignoreDim) continue;
+    if (state.dims[k].size && !state.dims[k].has(DIMS[k].get(e))) return false;
+  }
+  return true;
+}
+
+function badge(e){
+  const B = [];
+  B.push(`<span class="b g${e.grade}" title="证据等级">${esc(e.grade)}</span>`);
+  if (e.scope && e.scope !== '?') B.push(`<span class="b">${esc(e.scope)}</span>`);
+  if (e.risk !== '?') B.push(`<span class="b r${e.risk==='大'?'h':e.risk==='中'?'m':'l'}">风险 ${esc(e.risk)}</span>`);
+  if (e.rev !== '?'){
+    const cls = e.rev === '低' ? ' irr' : '';
+    B.push(`<span class="b${cls}" title="可逆性">可逆 ${esc(e.rev)}</span>`);
+  }
+  const cost = [];
+  if (e.tags['钱'] !== undefined) cost.push('钱 ' + (e.tags['钱'] === '0' ? '不花' : e.tags['钱']));
+  if (e.tags['时间']) cost.push('时间 ' + e.tags['时间']);
+  if (e.tags['毅力']) cost.push('毅力 ' + e.tags['毅力']);
+  if (cost.length) B.push(`<span class="b">${esc(cost.join(' · '))}</span>`);
+  if (e.todo) B.push('<span class="b todo" title="含待核实内容">待核实</span>');
+  return B.join('');
+}
+
+function card(e, key){
+  const open = state.open.has(key) ? ' open' : '';
+  const rows = FIELDS.filter(f => e.fields[f]).map(f => {
+    const isSrc = f === '来源';
+    return `<div class="f"><div class="k">${esc(f)}</div><div class="v${isSrc?' src':''}">${
+      isSrc ? linkify(e.fields[f]) : esc(e.fields[f]).replace(/\n/g,'<br>')}</div></div>`;
+  }).join('');
+  return `<article class="card" data-r="${esc(e.risk)}" id="${key}">
+    <h3><span class="num">${e.num}.</span>${esc(e.title)}</h3>
+    <div class="badges">${badge(e)}</div>
+    ${e.fields['说人话'] ? `<p class="human">${esc(e.fields['说人话']).replace(/\n/g,'<br>')}</p>` : ''}
+    <details${open} data-key="${key}"><summary>全部字段</summary><div class="fields">${rows}</div></details>
+  </article>`;
+}
+
+function render(){
+  const all = SECTIONS.flatMap(s => s.entries);
+  const base = all.filter(e => matches(e, null));
+
+  const byOthers = {};
+  for (const k in DIMS) byOthers[k] = all.filter(e => matches(e, k));
+
+  renderMatrix(base);
+  renderFacets(base, byOthers);
+
+  document.getElementById('hits').textContent = base.length;
+
+  const out = document.getElementById('out');
+  if (!base.length){
+    out.innerHTML = '<div class="empty"><b>没有符合条件的条目</b>把筛选放宽一点，或者点「清除全部筛选」。</div>';
+    return;
+  }
+  let h = '';
+  for (const s of SECTIONS){
+    const es = s.entries.filter(e => matches(e, null));
+    if (!es.length) continue;
+    h += `<div class="sechead"><span class="sn">第 ${s.num} 节</span><h2>${esc(s.name)}</h2>
+            <span class="sc">${es.length} / ${s.entries.length} 条</span></div>`;
+    for (const e of es) h += card(e, 'e' + s.num + '-' + e.num);
+  }
+  out.innerHTML = h;
+  out.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => {
+    d.open ? state.open.add(d.dataset.key) : state.open.delete(d.dataset.key);
+  }));
+}
+
+/* ============ 启动 ============ */
+(async function init(){
+  try{
+    const readme = await getText('README.md');
+    const files = [...new Set([...readme.matchAll(README_FILES)].map(m => m[1]))].sort();
+    if (!files.length) throw new Error('README.md 里没找到 book/ 文件清单');
+    if (CORPUS && files.some(f => !CORPUS.parts[f])) throw new Error('离线包缺少正文文件');
+    const texts = await Promise.all(files.map(f => getText(f)));
+    SECTIONS = files.map((f,i) => parseBook(texts[i], f)).filter(s => s.entries.length);
+    renderStats();
+    render();
+  } catch(err){
+    document.getElementById('out').innerHTML =
+      `<div class="err"><b>读不到正文。</b><br><br>
+       浏览器不允许网页读本地文件。请在项目目录下起一个静态服务器：<br><br>
+       <code>python -m http.server 8000</code><br><br>
+       然后打开 <code>http://localhost:8000/</code>。<br><br>
+       <span style="color:var(--ink-3);font-size:13px">技术信息：${esc(err.message)}</span></div>`;
+  }
+})();
+
+/* ============ 交互 ============ */
+document.getElementById('q').addEventListener('input', e => {
+  state.q = e.target.value.trim().toLowerCase(); render();
+});
+document.getElementById('reset').addEventListener('click', () => {
+  state.q = ''; document.getElementById('q').value = '';
+  for (const k in DIMS) state.dims[k].clear();
+  render(); scrollTo({top:0, behavior:'smooth'});
+});
+document.getElementById('theme').addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem('aes-theme', next); }catch(e){}
+});
+try{
+  const saved = localStorage.getItem('aes-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+}catch(e){}
+</script>
+</body>
+</html>

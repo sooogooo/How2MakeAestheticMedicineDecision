@@ -1,0 +1,7 @@
+# 构建产物。正文一改就会重新生成，不入库。
+dist/
+
+# 编辑器与依赖
+.idea/
+.vscode/
+node_modules/
