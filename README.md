@@ -6,6 +6,8 @@
 
 这本书不回答「我该做什么项目」。
 
+**[打开在线检索页](https://sooogooo.github.io/How2MakeAestheticMedicineDecision/)** · [下载离线单文件](https://github.com/sooogooo/How2MakeAestheticMedicineDecision/releases/download/offline-latest/HowToAesthetic.html) · 数据截至 2026-09-26 · 许可 [Unlicense](LICENSE)
+
 ---
 
 ## 这本书想回答的问题
@@ -171,9 +173,12 @@ P 是这本书新增的一档。它管的不是「有没有效」，是「合不
 
 ## 用法
 
-- **按关键词、节、证据等级、口径、风险、可逆性筛选**：打开 `index.html`。数据直接读本文件，正文改了就跟着改。
-  - 本地看：`python -m http.server 8000`，然后开 `http://localhost:8000/`。直接双击本地文件会空白（浏览器不许网页读本地文件）。
-  - 不想起服务器：跑一次 `node tools/offline.mjs`，生成 `dist/HowToAesthetic.html`。这一个文件自带全部正文，双击就能看，也能直接发给别人。
+- **在线筛选**：[打开在线检索页](https://sooogooo.github.io/How2MakeAestheticMedicineDecision/)。按关键词、节、证据等级、口径、风险、可逆性筛。
+- **离线看**：[下载离线单文件](https://github.com/sooogooo/How2MakeAestheticMedicineDecision/releases/download/offline-latest/HowToAesthetic.html)。一个文件自带全部正文，双击就能看，不用服务器不用联网，也能直接发给别人。链接固定不变，正文更新后自动重出。
+- **自己跑**：
+  - 起服务器：`python -m http.server 8000`，然后开 `http://localhost:8000/`。直接双击 `index.html` 会空白（浏览器不许网页读本地文件）。
+  - 打离线包：`node tools/offline.mjs`，产物在 `dist/`。
+  - 校验结构：`node tools/verify.mjs`。会查标签字段、栏位缺失、说人话长度、说人话里有没有混进行话。
 - **只想看风险最大的**：筛「风险 = 大」，得到 29 条。
 - **只想看不可逆的**：筛「可逆 = 低」，得到 29 条。
 - **只想看能立刻做完的**：筛「钱 = 0」且「时间 = 少」，得到绝大部分条目。

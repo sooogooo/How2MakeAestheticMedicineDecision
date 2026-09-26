@@ -1,0 +1,89 @@
+# 正文一改就跑三件事：
+#   1. 结构校验（verify）——条目字段是否齐全，检索页能不能正确解析
+#   2. 打包离线单文件（build）——产物进 artifact，PR 上也能下
+#   3. 发布到固定 Release（release）——只在 main 上跑，下载链接不变
+#
+# 为什么 verify 单独一个 job、不写进 build 的 needs：
+# 校验没过说明内容有问题，但那时更该把产物打出来看看到底哪里坏了。
+# 所以 build 照跑、artifact 照样传，只有「发布」这一步要求校验通过。
+# 本仓库的前身项目为这件事写过一段注释，这里沿用同一条判断。
+name: 校验与打包
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - README.md
+      - CLAUDE.md
+      - book/**
+      - docs/**
+      - index.html
+      - tools/**
+      - .github/workflows/book.yml
+  pull_request:
+    paths:
+      - README.md
+      - CLAUDE.md
+      - book/**
+      - docs/**
+      - index.html
+      - tools/**
+      - .github/workflows/book.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: book-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: 结构校验
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/verify.mjs
+
+  build:
+    name: 打包离线单文件
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/offline.mjs
+      - run: |
+          test -s dist/HowToAesthetic.html || { echo '产物为空'; exit 1; }
+          ls -l dist/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HowToAesthetic
+          path: dist/HowToAesthetic.html
+
+  release:
+    name: 发布到 Release
+    needs: [verify, build]
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: HowToAesthetic
+          path: dist
+      - name: 挂到 offline-latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          notes="正文提交 ${GITHUB_SHA::7}，生成于 $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M')（北京时间）。离线单文件，双击就能看，不用服务器也不用联网。正文每次更新后自动重出，下载链接固定不变。"
+          if gh release view offline-latest --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release edit offline-latest --repo "$GITHUB_REPOSITORY" --title "离线单文件（自动更新）" --notes "$notes"
+          else
+            gh release create offline-latest --repo "$GITHUB_REPOSITORY" --title "离线单文件（自动更新）" --notes "$notes" --latest=false
+          fi
+          gh release upload offline-latest dist/HowToAesthetic.html --repo "$GITHUB_REPOSITORY" --clobber
