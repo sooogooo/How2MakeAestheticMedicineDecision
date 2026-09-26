@@ -6,7 +6,13 @@
 
 这本书不回答「我该做什么项目」。
 
-**[打开在线检索页](https://sooogooo.github.io/How2MakeAestheticMedicineDecision/)** · [下载离线单文件](https://github.com/sooogooo/How2MakeAestheticMedicineDecision/releases/download/offline-latest/HowToAesthetic.html) · 数据截至 2026-09-26 · 许可 [Unlicense](LICENSE)
+**[打开在线检索页](https://sooogooo.github.io/How2MakeAestheticMedicineDecision/)** · [下载离线单文件](https://github.com/sooogooo/How2MakeAestheticMedicineDecision/releases/download/offline-latest/HowToAesthetic.html) · [目录](#目录) · [术语表](#术语表) · [核实记录](docs/核实记录.md)
+
+[![校验与打包](https://github.com/sooogooo/How2MakeAestheticMedicineDecision/actions/workflows/book.yml/badge.svg)](https://github.com/sooogooo/How2MakeAestheticMedicineDecision/actions/workflows/book.yml)
+[![条目](https://img.shields.io/badge/条目-88%20条-18794e?style=flat-square)](#目录)
+[![证据分级](https://img.shields.io/badge/证据分级-A%2027%20·%20B%2017%20·%20C%2018%20·%20P%2026-915930?style=flat-square)](#证据分级)
+[![待核实](https://img.shields.io/badge/待核实-13%20处-9a6a12?style=flat-square)](docs/核实记录.md)
+[![许可](https://img.shields.io/badge/许可-Unlicense-565a5f?style=flat-square)](LICENSE)
 
 ---
 
